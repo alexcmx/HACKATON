@@ -7,6 +7,7 @@ class Client(Adress):
     passwd = models.CharField(max_length=255)
 
 class RequestClient(Adress):
+    
     progress_type = (
         (1, "Заказ получен"),
         (2, "В пути"),
@@ -15,11 +16,12 @@ class RequestClient(Adress):
         (5, "Заказ доставлен"),
     )
 
-    progress = models.IntegerField(choises=progress_type)
+    progress = models.IntegerField(max_length=1, choices=progress_type)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     dron = models.ForeignKey(Drone, on_delete=models.CASCADE)
     deliveryTime = models.DateTimeField()
+
 
 
 
