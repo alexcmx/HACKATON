@@ -11,7 +11,7 @@ class StockViewSet(viewsets.ModelViewSet):
 
 class PromiseViewSet(viewsets.ModelViewSet):
     queryset = Promise.objects.all()
-    serializer_class = StockSerializer
+    serializer_class = PromiseSerializer
 
 
 class DroneViewSet(viewsets.ModelViewSet):
