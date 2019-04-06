@@ -78,5 +78,6 @@ class Drone(Adress, SnippingType):
     operation_mode = models.IntegerField(default=0)
     stock = models.ForeignKey(
         Stock, null=True, blank=True, on_delete=models.SET_NULL)
+    maxEnegry = models.FloatField(default=100)
 
 # Create your models here.
