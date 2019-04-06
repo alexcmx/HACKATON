@@ -38,7 +38,7 @@ class RequestClient(Adress):
         for i in arr:
             if i[1].promise==self.promise:
                 self.departure = i[1].id
-
+        trace_= look4trace(self.client.longtitude, self.client.lantitude, self.longtitude, self.lantitude, self.client.energy)
 
 
         # This code only happens if the objects is
@@ -54,4 +54,5 @@ class RequestClient(Adress):
 def distance(x1,y1,x2,y2):
     return sqrt(abs(x1-x2)+abs(y1-y2))
 
-def look4trace(flong,)
+def look4trace(flong, flan, slong, slan, energy):
+    pass
