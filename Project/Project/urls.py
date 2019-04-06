@@ -18,17 +18,18 @@ from django.urls import path
 from rest_framework import routers
 from django.conf.urls import include
 from stock.views import StockViewSet, PromiseViewSet, TimeWorkViewSet, DroneViewSet
+from client.views import ClientViewSet, RequestClientViewSet
 
 router = routers.DefaultRouter()
 router.register('stock', StockViewSet)
 router.register('promise', PromiseViewSet)
 router.register('stock', TimeWorkViewSet)
 router.register('drone', DroneViewSet)
-
+router.register('client', ClientViewSet)
+router.register('requestClient', RequestClientViewSet)
 
 urlpatterns = [
     path('api-v1/router/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-
 ]
