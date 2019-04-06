@@ -16,30 +16,45 @@ class RequestClient(Adress):
         (5, "Заказ доставлен"),
     )
 
-    progress = models.IntegerField(max_length=255, choices=progress_type)
+    progress = models.IntegerField(choices=progress_type)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     deliveryTime = models.DateTimeField()
-    promise = models.ForeignKey(Promise, on_delete=models.CASCADE)
+    promise = models.ForeignKey(Promise, on_delete=models.SET_NULL, null=True)
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            pass
+        trace = self.trace()
+        str_ = ""
+        for i in trace[1:-1]:
+            str_ += str(i.longtitude) + ' ' + str(i.lantitude) + '\n'
+        str_ += str(trace[-1][0]) + " " +str(trace[-1][1])
         super().save(*args, **kwargs)
-
+        drone = Drone.objects.get(id=1)
+        t= Track.objects.create(distance=trace[0], track=str_)
+        t.drone =drone
+        t.drone =drone
+        t.save()
 
     def trace(self):
         StockList = Stock.objects.all()
         arr = []
-        self.departure = None
+        departure = None
         for i in StockList:
-            arr.append((distance(self.client.longtitude, self.client.lantitude, self.longtitude, self.lantitude), i))
+            arr.append((distance(i.longtitude, i.lantitude, self.longtitude, self.lantitude), i))
         arr = sorted(arr, key=lambda x: x[0])
+        """arr = [(dist, stock),....]"""
         for i in arr:
-            if i[1].promise==self.promise:
-                self.departure = i[1].id
-        trace_= look4trace(self.client.longtitude, self.client.lantitude, self.longtitude, self.lantitude, self.client.energy)
 
+            if i[1] == self.promise.stock:
+                self.stock = i[1]
+                departure = i
+        trace_= look4trace((self.longtitude,self.lantitude),departure,arr)
+        if trace_==False:
+            return [-1, self.stock]
+        else:
+            return trace_
+
+ # Create your models here.
 
         # This code only happens if the objects is
         # not in the database yet. Otherwise it would
@@ -52,7 +67,28 @@ class RequestClient(Adress):
 # Create your models here.
 
 def distance(x1,y1,x2,y2):
-    return sqrt(abs(x1-x2)+abs(y1-y2))
+    return sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2))
 
-def look4trace(flong, flan, slong, slan, energy):
-    pass
+def look4trace(client_addr,departure,arr):
+    drone=Drone.objects.get(id=1)
+    result_arr =[0,departure[1]]
+    #резульитат,трак
+    if(departure[0]+arr[0][0]<=drone.energy):
+        return [departure[0]+arr[0][0],departure[1],client_addr]
+    else:
+        find = departure
+        while True:
+
+            for i in arr:
+                if distance(find[1].longtitude,find[1].lantitude,i[1].longtitude,i[1].lantitude)<drone.energy:
+                    result_arr[0]+=distance(find[1].longtitude,find[1].lantitude,i[1].longtitude,i[1].lantitude)
+                    result_arr.append(i[1])
+                    find = i
+                    break
+                elif find == i:
+                    return  False
+
+            if find[0] + arr[0][0] < drone.energy:
+                result_arr[0] += find[0] + arr[0][0]
+                result_arr.append()
+                return result_arr

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from stock.models import TimeWork, Promise, Stock, Drone
+from stock.models import TimeWork, Promise, Stock, Drone, Track
 
 
 class StockSerializer(serializers.ModelSerializer):
@@ -22,5 +22,11 @@ class PromiseSerializer(serializers.ModelSerializer):
 
 class DroneSerializer(serializers.ModelSerializer):
     class Meta:
-        models = Drone
+        model = Drone
         fields = '__all__'
+
+class TrackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Track
+        fields = '__all__'
+

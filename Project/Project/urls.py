@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework import routers
 from django.conf.urls import include
-from stock.views import StockViewSet, PromiseViewSet, TimeWorkViewSet, DroneViewSet
+from stock.views import StockViewSet, PromiseViewSet, TimeWorkViewSet, DroneViewSet, TrackViewSet
 from client.views import ClientViewSet, RequestClientViewSet
 
 router = routers.DefaultRouter()
@@ -26,7 +26,8 @@ router.register('promise', PromiseViewSet)
 router.register('stock', TimeWorkViewSet)
 router.register('drone', DroneViewSet)
 router.register('client', ClientViewSet)
-router.register('Requests', RequestClientViewSet)
+router.register('requests', RequestClientViewSet)
+router.register('track', TrackViewSet)
 
 
 urlpatterns = [

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from stock.models import TimeWork, Promise, Stock, Drone
-from stock.serializers import StockSerializer, PromiseSerializer, DroneSerializer, TimeWorkSerializer
+from stock.models import TimeWork, Promise, Stock, Drone, Track
+from stock.serializers import StockSerializer, PromiseSerializer, DroneSerializer, TimeWorkSerializer, TrackSerializer
 
 
 class StockViewSet(viewsets.ModelViewSet):
@@ -23,5 +23,7 @@ class TimeWorkViewSet(viewsets.ModelViewSet):
     queryset = TimeWork.objects.all()
     serializer_class = TimeWorkSerializer
 
-
+class TrackViewSet(viewsets.ModelViewSet):
+    queryset = Track.objects.all()
+    serializer_class = TrackSerializer
 # Create your views here.

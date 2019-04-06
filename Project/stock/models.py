@@ -74,10 +74,14 @@ class Drone(Adress, SnippingType):
     Дроне
     """
     name = models.CharField(max_length=255)
-    energy = models.FloatField(max_length=255)
+    energy = models.FloatField(default=100)
     operation_mode = models.IntegerField(default=0)
     stock = models.ForeignKey(
         Stock, null=True, blank=True, on_delete=models.SET_NULL)
     maxEnegry = models.FloatField(default=100)
 
+class Track(models.Model):
+    distance = models.FloatField(max_length=255)
+    track = models.TextField(default="")
+    drone = models.OneToOneField(Drone, on_delete=models.SET_NULL, null=True)
 # Create your models here.
