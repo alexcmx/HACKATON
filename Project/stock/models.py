@@ -57,7 +57,7 @@ class TimeWork(models.Model):
     information = models.TextField(blank=True)
     time_start = models.TimeField(blank=True)
     time_end = models.TimeField(blank=True)
-    stock = models.ForeignKey(Stock, on_deleted=models.CASCADE)
+    stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
 
 
 class Promise(Restrection, SnippingType):
@@ -66,7 +66,7 @@ class Promise(Restrection, SnippingType):
     """
     name = models.CharField(max_length=255)
 
-    stock = model.ForeignKey(Stock, on_deleted)
+    stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
 
 
 class Drone(Adress, SnippingType):
@@ -76,6 +76,7 @@ class Drone(Adress, SnippingType):
     name = models.CharField(max_length=255)
     energy = models.FloatField(max_length=255)
     operation_mode = models.IntegerField(default=0)
-
+    stock = models.ForeignKey(
+        Stock, null=True, blank=True, on_delete=models.SET_NULL)
 
 # Create your models here.
