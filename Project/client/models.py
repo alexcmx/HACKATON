@@ -1,13 +1,15 @@
 from django.db import models
 from stock.models import *
 from math import *
+import random
+
 class Client(Adress):
     name = models.CharField(max_length=255)
     login = models.CharField(max_length=255)
     passwd = models.CharField(max_length=255)
 
 class RequestClient(Adress):
-    
+    key = models.IntegerField(default=0)
     progress_type = (
         (1, "Заказ получен"),
         (2, "В пути"),
@@ -21,9 +23,14 @@ class RequestClient(Adress):
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     deliveryTime = models.DateTimeField()
     promise = models.ForeignKey(Promise, on_delete=models.SET_NULL, null=True)
+    pin = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
+        if not self.pk:
+            self.key = random.randint(20000, 99999)
+
         trace = self.trace()
+
         str_ = ""
         for i in trace[1:-1]:
             str_ += str(i.longtitude) + ' ' + str(i.lantitude) + '\n'
