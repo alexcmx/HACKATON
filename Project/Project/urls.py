@@ -35,6 +35,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api-v1/filters/', include('stock.urls')),
-    path('api-v1/filters/', include('client.urls'))
+    path('api-v1/filters/', include('client.urls')),
+    path('dron-hack/', include('base.urls')),
 
 ]
