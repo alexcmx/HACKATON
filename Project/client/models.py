@@ -60,10 +60,6 @@ class RequestClient(Adress):
         # not in the database yet. Otherwise it would
         # have pk
 
-
-
-
-
 # Create your models here.
 
 def distance(x1,y1,x2,y2):
@@ -86,7 +82,7 @@ def look4trace(client_addr,departure,arr):
                     find = i
                     break
                 elif find == i:
-                    return  False
+                    return False
 
             if find[0] + arr[0][0] < drone.energy:
                 result_arr[0] += find[0] + arr[0][0]
