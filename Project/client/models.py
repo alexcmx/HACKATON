@@ -1,5 +1,5 @@
 from django.db import models
-from Project.stock.models import *
+from stock.models import *
 
 class Client(Adress):
     name = models.CharField(max_length=255)
@@ -16,10 +16,9 @@ class RequestClient(Adress):
         (5, "Заказ доставлен"),
     )
 
-    progress = models.IntegerField(max_length=1, choices=progress_type)
+    progress = models.IntegerField(max_length=255, choices=progress_type)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
-    dron = models.ForeignKey(Drone, on_delete=models.CASCADE)
     deliveryTime = models.DateTimeField()
 
 
