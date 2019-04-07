@@ -41,8 +41,7 @@ class RequestClient(Adress):
         super().save(*args, **kwargs)
         drone = Drone.objects.get(id=2)
         t= Track.objects.create(distance=trace[0], track=str_)
-        t.drone =drone
-        t.drone =drone
+        t.request_client = RequestClient.objects.get(pk=self.pk)
         t.save()
 
     def trace(self):

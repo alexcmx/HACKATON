@@ -210,7 +210,15 @@ function initMap() {
         ];
 
         */
+        placeMarker({lat:55.728484,lng:37.748107})
 
+        placeMarker({lat:55.809843, lng:37.499758})
+
+        placeMarker({lat:55.717426, lng:37.757728})
+
+        placeMarker({lat:55.402122, lng:37.559514})
+
+        placeMarker({lat:55.923392, lng:37.753452})
         // Настройки рендерера путей DirectionsService
         var polylineColorSettings = {
             // Настройки цвета линии
@@ -273,6 +281,7 @@ function initMap() {
                 }
             });
         } else {
+
             // добавляем в путь начало и конец
             flightPlanCoordinates.unshift({
                 lat: myLat,
@@ -287,7 +296,6 @@ function initMap() {
             polylineColorSettings['geodesic'] = true;
 
             var flightPath = new google.maps.Polyline(polylineColorSettings);
-
             flightPath.setMap(map);
 
         }
@@ -344,32 +352,27 @@ function initMap() {
 
     autoUpdate();
     var coord  ={};
-    axios.get('http://localhost/api-v1/router/track/11/').then(function (response) {
+    axios.get('http://localhost/api-v1/router/track/16/').then(function (response) {
     coord = response.data.track;
     var array = coord.split('\n')
     console.log(array)
-    lon_from = array[0].split(' ')[1]
-    lat_from = array[0].split(' ')[0]
-    lon_to = array[array.length-1].split(' ')[1]
-    lat_to = array[array.length-1].split(' ')[0]
+    lon_from = parseFloat(array[0].split(' ')[1])
+    lat_from = parseFloat(array[0].split(' ')[0])
+    lon_to = parseFloat(array[array.length-1].split(' ')[1])
+    lat_to = parseFloat(array[array.length-1].split(' ')[0])
     flightPath = [];
     if (array.length>2)
     {
         for (var i=1;i<array.length-1;i++)
         {
-        flightPath.push({lng:array[i].split(' ')[0], lat:array[i].split(' ')[1]})
+        flightPath.push({lng:parseFloat(array[i].split(' ')[0]), lat:parseFloat(array[i].split(' ')[1])})
         }
 
     }
     console.log(flightPath)
     console.log(lon_from, lon_to, lat_to, lat_from)
-    calcRoute(lat_from, lon_from, lat_to, lon_to, map, onAir = true, flightPlanCoordinates = fligthPath);
-    var marker = null;
-    google.maps.event.addListener(map, 'click', function(event) {
-        // очичстить список предудущих пунктов
-        //fligthPath = []
-        calcRoute(event.latLng.lat(), event.latLng.lng(), lat_to, lon_to, map, onAir = true, flightPlanCoordinates = fligthPath);
-    });
+    calcRoute(lat_from, lon_from, lat_to, lon_to, map, onAir = false, flightPlanCoordinates = fligthPath);
+
     })
     console.log(coord )
 
