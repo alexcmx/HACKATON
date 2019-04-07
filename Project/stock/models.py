@@ -45,6 +45,8 @@ class Stock(Adress, SnippingType):
     """
     Склад
     """
+    def __str__(self):
+        return self.name
     name = models.CharField(max_length=255)
     capacity = models.IntegerField(default=0)
 
@@ -53,6 +55,9 @@ class TimeWork(models.Model):
     """
     Время работы
     """
+    def __str__(self):
+        return self.name
+
     name = models.CharField(max_length=255)
     information = models.TextField(blank=True)
     time_start = models.TimeField(blank=True)
@@ -64,6 +69,9 @@ class Promise(Restrection, SnippingType):
     """
     Посылка
     """
+    def __str__(self):
+        return self.name
+
     name = models.CharField(max_length=255)
 
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
@@ -73,6 +81,9 @@ class Drone(Adress, SnippingType):
     """
     Дроне
     """
+    def __str__(self):
+        return self.name
+
     name = models.CharField(max_length=255)
     energy = models.FloatField(default=100)
     operation_mode = models.IntegerField(default=0)
@@ -81,6 +92,8 @@ class Drone(Adress, SnippingType):
     maxEnegry = models.FloatField(default=100)
 
 class Track(models.Model):
+    def __str__(self):
+        return self.track
     distance = models.FloatField(max_length=255)
     track = models.TextField(default="")
     drone = models.OneToOneField(Drone, on_delete=models.SET_NULL, null=True)

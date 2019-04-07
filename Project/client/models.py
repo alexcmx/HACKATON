@@ -7,6 +7,8 @@ class Client(Adress):
     name = models.CharField(max_length=255)
     login = models.CharField(max_length=255)
     passwd = models.CharField(max_length=255)
+    def __str__(self):
+        return self.login
 
 class RequestClient(Adress):
     key = models.IntegerField(default=0)
@@ -17,13 +19,14 @@ class RequestClient(Adress):
         (4, "Ожидает подтверждения"),
         (5, "Заказ доставлен"),
     )
+    def __str__(self):
+        return self.client.name + self.promise
 
     progress = models.IntegerField(choices=progress_type)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     deliveryTime = models.DateTimeField()
     promise = models.ForeignKey(Promise, on_delete=models.SET_NULL, null=True)
-    pin = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         if not self.pk:
@@ -36,7 +39,7 @@ class RequestClient(Adress):
             str_ += str(i.longtitude) + ' ' + str(i.lantitude) + '\n'
         str_ += str(trace[-1][0]) + " " +str(trace[-1][1])
         super().save(*args, **kwargs)
-        drone = Drone.objects.get(id=1)
+        drone = Drone.objects.get(id=2)
         t= Track.objects.create(distance=trace[0], track=str_)
         t.drone =drone
         t.drone =drone
@@ -73,7 +76,7 @@ def distance(x1,y1,x2,y2):
     return sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2))
 
 def look4trace(client_addr,departure,arr):
-    drone=Drone.objects.get(id=1)
+    drone=Drone.objects.get(id=2)
     result_arr =[0,departure[1]]
     #резульитат,трак
     if(departure[0]+arr[0][0]<=drone.energy):
