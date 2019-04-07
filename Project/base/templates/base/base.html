@@ -12,17 +12,20 @@
   <link rel="stylesheet" href="{% static 'base/lib/font-awesome-4.7.0/css/font-awesome.min.css' %}">
   <link href="https://fonts.googleapis.com/css?family=Cormorant+Infant" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'base/css/font.css' %}">
-    {% block extra_style %}
-{% endblock %}
-    <title>
-      {% block title %}
-      {% endblock %}
-      </title>
+  {% block extra_style %}
+  {% endblock %}
+  <title>
+    {% block title %}
+    {% endblock %}
+  </title>
 </head>
 
-<body >
-{% block content %}
-{% endblock %}
+<body>
+  <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#!">DRON-HACK</a>
+  </nav>
+  {% block content %}
+  {% endblock %}
 
 
 
@@ -30,8 +33,8 @@
   <script src="{% static 'base/lib/bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
   <script src="{% static 'base/lib/vue.js' %}"></script>
 
-{% block extra_script %}
-{% endblock %}
+  {% block extra_script %}
+  {% endblock %}
 </body>
 
 </html>

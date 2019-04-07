@@ -7,33 +7,33 @@
 {% endblock %}
 
 {% block content %}
-  <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#!">DRON-HACK</a>
-  </nav>
-  <h2>Проверка работаспособности страницы и библиотек</h2>
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#!">DRON-HACK</a>
+</nav>
+<h2>Проверка работаспособности страницы и библиотек</h2>
 
 
-  <div id="app-5">
-    <p>{{ message }}</p>
-    <button v-on:click="reverseMessage">Перевернуть сообщение</button>
-  </div>
+<div id="app-5">
+  <p>{{ message }}</p>
+  <button v-on:click="reverseMessage">Перевернуть сообщение</button>
+</div>
 
 {% endblock %}
 
 {% block extra_script %}
 
-  <script>
-    var app5 = new Vue({
-      el: '#app-5',
-      data: {
-        message: 'Привет, Vue.js!'
-      },
-      methods: {
-        reverseMessage: function() {
-          this.message = this.message.split('').reverse().join('')
-        }
+<script>
+  var app5 = new Vue({
+    el: '#app-5',
+    data: {
+      message: 'Привет, Vue.js!'
+    },
+    methods: {
+      reverseMessage: function() {
+        this.message = this.message.split('').reverse().join('')
       }
-    })
-  </script>
+    }
+  })
+</script>
 
 {% endblock %}
