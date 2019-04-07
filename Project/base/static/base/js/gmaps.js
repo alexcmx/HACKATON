@@ -370,7 +370,7 @@ function initMap() {
 
     autoUpdate();
     var coord  ={};
-    axios.get('http://localhost/api-v1/router/track/13/').then(function (response) {
+    axios.get('http://localhost/api-v1/router/track/11/').then(function (response) {
     coord = response.data.track;
     var array = coord.split('\n')
     console.log(array)
@@ -387,49 +387,18 @@ function initMap() {
         }
 
     }
-    console.log(flightPath)
     console.log(lon_from, lon_to, lat_to, lat_from)
-    flightPath = [
+    flightPath = [];
 
-         {
-        lat:55.717426,
-        lng:37.757728},
-         {
-        lat:55.402122,
-        lng:37.559514}
-    ];
-    if (flightPath==[])
-    {
-    calcRoute(lat_from, lon_from, lat_to, lon_to, map, onAir = true);
-    }else
-    {
-    for(var i = 0; i < flightPath.length-1;i++){
-        var route = [flightPath[i], flightPath[i+1]];
-        var fromCoord = flightPath[i];
-        var toCoord = flightPath[i+1];
-        var a = calcRoute(fromCoord['lat'], fromCoord['lng'], toCoord['lat'], toCoord['lng'], map, onAir = true, flightPlanCoordinates = []);
-        console.log(a);
-        }
-    }
+
+    var a = calcRoute(lat_from, lon_from, lat_to, lon_to, map, onAir = true, flightPlanCoordinates = []);
+    console.log(a);
+
+
 
     })
     console.log(coord )
 
-//
-//    lat_from = 55.8104315;
-//    lon_from = 37.4981706;
-//
-//    lat_to = 55.75370903771494;
-//    lon_to = 37.61981338262558;
-//    fligthPath = [{ // Залетим в магазин по пути
-//            lat: 55.7904,
-//            lng: 37.5313
-//        },
-//        {
-//            lat: 55.7854,
-//            lng: 37.5313
-//        }
-//    ]
 
 }
 
