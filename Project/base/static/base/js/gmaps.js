@@ -352,7 +352,7 @@ function initMap() {
 
     autoUpdate();
     var coord  ={};
-    axios.get('http://localhost/api-v1/router/track/16/').then(function (response) {
+    axios.get('http://localhost/api-v1/router/track/13/').then(function (response) {
     coord = response.data.track;
     var array = coord.split('\n')
     console.log(array)
