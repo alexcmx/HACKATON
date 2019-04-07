@@ -11,3 +11,7 @@ class DronOrderView(TemplateView):
 
 class DronFindMeView(TemplateView):
     template_name = "base/dron-find-me.html"
+
+
+class MapView(TemplateView):
+    template_name = "base/map.html"
